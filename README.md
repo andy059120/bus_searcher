@@ -1,5 +1,7 @@
 # bus_searcher
 
+本機開發與 iOS Simulator 執行方式，請參閱 [開發環境恢復指南](DEVELOPMENT.md)。
+
 ### This is a Flutter application for querying bus routes. Users can check the arrival times of buses and view detailed route information. 
 
 ### The app currently supports querying bus routes only in New Taipei City and Taipei City.

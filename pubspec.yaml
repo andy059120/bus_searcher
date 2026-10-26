@@ -1,0 +1,21 @@
+name: bus_project
+description: A Flutter application for querying bus routes in Taipei and New Taipei.
+publish_to: none
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.1 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: 1.0.6
+  http: 1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: 2.0.3
+
+flutter:
+  uses-material-design: true
