@@ -1,0 +1,20 @@
+[
+  {
+    "RouteUID": "TPE10961",
+    "RouteName": {
+      "Zh_tw": "262",
+      "En": "262"
+    },
+    "DepartureStopNameZh": "宏國德霖科技大學",
+    "DestinationStopNameZh": "民生社區"
+  },
+  {
+    "RouteUID": "TPE10962",
+    "RouteName": {
+      "Zh_tw": "262區",
+      "En": "262Shuttle"
+    },
+    "DepartureStopNameZh": "中和",
+    "DestinationStopNameZh": "民生社區"
+  }
+]

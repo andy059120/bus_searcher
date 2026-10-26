@@ -3,9 +3,8 @@ import 'dart:async';
 import 'package:bus_project/config/tdx_credentials.dart';
 import 'package:bus_project/data/services/tdx_exception.dart';
 import 'package:bus_project/data/services/tdx_token_service.dart';
+import 'package:bus_project/data/services/tdx_request_limiter.dart';
 import 'package:http/http.dart' as http;
-
-final tdxApiClient = TdxApiClient.fromEnvironment();
 
 class TdxApiClient {
   TdxApiClient({
@@ -13,21 +12,25 @@ class TdxApiClient {
     required TdxTokenService tokenService,
     this.requestTimeout = const Duration(seconds: 15),
   })  : _client = client,
-        _tokenService = tokenService;
+        _tokenService = tokenService,
+        _limiter = tokenService.limiter;
 
-  factory TdxApiClient.fromEnvironment() {
+  factory TdxApiClient.fromCredentials(TdxCredentials credentials) {
     final client = http.Client();
+    final limiter = TdxRequestLimiter();
     return TdxApiClient(
       client: client,
       tokenService: TdxTokenService(
         client: client,
-        credentials: const TdxCredentials.fromEnvironment(),
+        limiter: limiter,
+        credentials: credentials,
       ),
     );
   }
 
   final http.Client _client;
   final TdxTokenService _tokenService;
+  final TdxRequestLimiter _limiter;
   final Duration requestTimeout;
 
   Future<http.Response> get(Uri uri) async {
@@ -50,15 +53,21 @@ class TdxApiClient {
   }
 
   Future<http.Response> _send(Uri uri, String token) async {
+    // 包含 401 的再次查詢；每一次真正送出的請求都要計入額度。
+    _limiter.acquire();
     final request = http.Request('GET', uri)
       ..followRedirects = false
       ..headers['Authorization'] = 'Bearer $token'
       ..headers['Accept'] = 'application/json';
     try {
-      return await _client
+      final response = await _client
           .send(request)
           .then(http.Response.fromStream)
           .timeout(requestTimeout);
+      if (response.statusCode == 429) {
+        _limiter.recordRateLimit(response.headers['retry-after']);
+      }
+      return response;
     } on TimeoutException {
       throw const TdxException('TDX 資料查詢逾時，請稍後重試。');
     } on http.ClientException {

@@ -4,5 +4,8 @@
 <dict>
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
+	<!-- TDX HTTPS 查詢需要對外連線權限。 -->
+	<key>com.apple.security.network.client</key>
+	<true/>
 </dict>
 </plist>

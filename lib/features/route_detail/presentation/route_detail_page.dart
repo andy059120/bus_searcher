@@ -1,333 +1,226 @@
 import 'package:flutter/material.dart';
-import 'package:bus_project/features/favorites/presentation/routine_stop_page.dart';
-import 'package:bus_project/data/services/get_bus_stops_of_route.dart';
+import 'package:bus_project/data/models/bus_route.dart';
 import 'package:bus_project/data/models/bus_stop.dart';
-import 'package:bus_project/data/services/get_estimated_bus_stop.dart';
 import 'package:bus_project/data/models/estimated_bus_stop.dart';
+import 'package:bus_project/data/services/bus_repository.dart';
+import 'package:bus_project/features/favorites/data/favorites_store.dart';
+import 'package:bus_project/shared/widgets/query_message.dart';
+import 'package:bus_project/shared/widgets/bus_app_bar.dart';
 
 class MyRouteDetailPage extends StatefulWidget {
-  final String busCode;
-  final String stopName0Zh;
-  final String stopName1Zh;
+  const MyRouteDetailPage({
+    super.key,
+    required this.route,
+    required this.repository,
+    this.initialSubRouteUid,
+    this.initialDirection,
+  });
 
-  const MyRouteDetailPage(
-      {super.key,
-      required this.busCode,
-      required this.stopName0Zh,
-      required this.stopName1Zh});
+  final BusRoute route;
+  final BusRepository repository;
+  final String? initialSubRouteUid;
+  final int? initialDirection;
 
   @override
-  State<MyRouteDetailPage> createState() => _MyRouteDetailPageState(
-        busCode: busCode,
-        stopName0Zh: stopName0Zh,
-        stopName1Zh: stopName1Zh,
-      );
+  State<MyRouteDetailPage> createState() => _MyRouteDetailPageState();
 }
 
 class _MyRouteDetailPageState extends State<MyRouteDetailPage> {
-  _MyRouteDetailPageState(
-      {required this.busCode,
-      required this.stopName0Zh,
-      required this.stopName1Zh});
-  final String busCode;
-  final String stopName0Zh;
-  final String stopName1Zh;
-  late Future<List<BusStop>> futureBusStops;
-  late Future<List<EstimateBusStop>> futureEstimateBusStops;
+  List<BusStop> _patterns = [];
+  ArrivalSnapshot? _arrivals;
+  int _selectedPattern = 0;
+  bool _loadingStops = false;
+  bool _refreshing = false;
+  String? _stopsError;
+  String? _arrivalError;
+
+  BusRepository get _repository => widget.repository;
 
   @override
   void initState() {
     super.initState();
-    futureBusStops = getBusStopsOfRoute(busCode);
-    futureEstimateBusStops = getEstimateBusStop(busCode);
+    _loadStops();
   }
 
-  void reloadWindow() {
+  Future<void> _loadStops() async {
+    if (_loadingStops) return;
     setState(() {
-      futureEstimateBusStops = getEstimateBusStop(busCode);
+      _loadingStops = true;
+      _stopsError = null;
     });
+    try {
+      final patterns = await _repository.getStops(widget.route);
+      // 離開畫面後不更新 State，也不繼續發出 ETA 查詢。
+      if (!mounted) return;
+      final preferred = patterns.indexWhere((pattern) =>
+          pattern.subRouteUid == widget.initialSubRouteUid &&
+          pattern.direction == widget.initialDirection);
+      setState(() {
+        _patterns = patterns;
+        _selectedPattern = preferred < 0 ? 0 : preferred;
+      });
+      if (patterns.isNotEmpty) await _refresh();
+    } catch (error) {
+      if (mounted) setState(() => _stopsError = queryErrorMessage(error));
+    } finally {
+      if (mounted) setState(() => _loadingStops = false);
+    }
   }
 
-  Future<void> refreshTime() async {
-    // 模擬刷新操作，比如從網絡或其他地方重新加載數據
-    await Future.delayed(const Duration(seconds: 10));
-
+  Future<void> _refresh() async {
+    if (_refreshing || _patterns.isEmpty) return;
     setState(() {
-      futureEstimateBusStops = getEstimateBusStop(busCode);
+      _refreshing = true;
+      _arrivalError = null;
     });
-    print("refresh");
+    try {
+      // 等待真正的查詢完成；60 秒內的刷新直接取共用快取。
+      final arrivals = await _repository.getArrivals(widget.route);
+      if (mounted) setState(() => _arrivals = arrivals);
+    } catch (error) {
+      // 更新失敗仍保留原站序與舊快照，並明確顯示錯誤及取得時間。
+      if (mounted) setState(() => _arrivalError = queryErrorMessage(error));
+    } finally {
+      if (mounted) setState(() => _refreshing = false);
+    }
+  }
+
+  String _timeLabel(DateTime date) {
+    final local = date.toLocal();
+    String pad(int value) => value.toString().padLeft(2, '0');
+    return '${local.month}/${local.day} ${pad(local.hour)}:${pad(local.minute)}:${pad(local.second)}';
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.blue, Colors.cyanAccent.shade400],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
+  Widget build(BuildContext context) => Scaffold(
+        appBar: BusAppBar(
+          title: Text(widget.route.routeName),
+          actions: [
+            IconButton(
+              tooltip: '更新到站資料',
+              onPressed: _loadingStops || _refreshing || _patterns.isEmpty
+                  ? null
+                  : _refresh,
+              icon: const Icon(Icons.refresh),
+            )
+          ],
         ),
-        title: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                busCode,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold),
-              ),
-            ]),
-      ),
-      backgroundColor: const Color.fromARGB(255, 184, 232, 255),
-      body: RefreshIndicator(
-        onRefresh: refreshTime,
-        child: FutureBuilder<List<BusStop>>(
-          future: futureBusStops,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              Set<int> directions =
-                  snapshot.data!.map((busStop) => busStop.direction).toSet();
-              final List<String> stopNameStr = [stopName0Zh, stopName1Zh];
-              return DefaultTabController(
-                length: directions.length,
-                child: Scaffold(
-                  appBar: TabBar(
-                    tabs: directions
-                        .map((direction) =>
-                            Tab(text: '往 ${stopNameStr[direction]}'))
-                        .toList(),
-                    labelColor: Colors.blue,
-                    unselectedLabelColor: Colors.grey,
-                    labelStyle: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    unselectedLabelStyle: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                    ),
-                    //onTap: (){reloadWindow()},
-                  ),
-                  backgroundColor: const Color.fromARGB(255, 184, 232, 255),
-                  body: TabBarView(
-                    children: directions.map((direction) {
-                      var busStopsForDirection = snapshot.data!
-                          .where((busStop) => busStop.direction == direction)
-                          .toList();
-                      return FutureBuilder<List<EstimateBusStop>>(
-                        future: futureEstimateBusStops,
-                        builder: (context, snapshotEstimate) {
-                          if (snapshotEstimate.hasData) {
-                            return ListView.builder(
-                              itemCount: busStopsForDirection.length,
-                              itemBuilder: (context, index) {
-                                var busStop = busStopsForDirection[index];
-                                var stopNamesZhList = busStop.stopNamesZh;
-                                var waitingTimesList =
-                                    stopNamesZhList.map((stopName) {
-                                  var estimateBusStop =
-                                      snapshotEstimate.data!.firstWhere(
-                                    (estimateBusStop) =>
-                                        estimateBusStop.direction ==
-                                            busStop.direction &&
-                                        estimateBusStop.stopNamesZh
-                                            .contains(stopName),
-                                    orElse: () => const EstimateBusStop(
-                                      direction: -1, // 這裡設置一個不存在的方向，表示未行駛
-                                      estimateTime: -1, // 這裡設置一個不存在的等候時間，表示未行駛
-                                      stopNamesZh: '未行駛', // 這裡設置未行駛的站名
-                                    ),
-                                  );
-                                  var estimateTime =
-                                      estimateBusStop.estimateTime;
+        body: _buildBody(),
+      );
 
-                                  switch (estimateTime != -1
-                                      ? (estimateTime! / 60).round()
-                                      : -1) {
-                                    case -1:
-                                      return '未行駛';
-                                    case 0:
-                                      return '進站中';
-                                    case 1:
-                                      return '將進站';
-                                    case 2:
-                                    //return '2 分';
-                                    default:
-                                      return '${(estimateTime! / 60).round()} 分';
-                                  }
-                                  /*return estimateTime != -1
-                                      ? ((estimateTime! / 60).round() < 3
-                                          ? '將進站'
-                                          : '${(estimateTime / 60).round()} 分')
-                                      : '未行駛';*/
-                                }).toList();
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    for (var i = 0;
-                                        i < stopNamesZhList.length;
-                                        i++)
-                                      ListTile(
-                                        //if(waitingTimesList[i]== '將進站')
-                                        title: RichText(
-                                          text: TextSpan(
-                                            children: [
-                                              TextSpan(
-                                                text: '${waitingTimesList[i]}',
-                                                style: TextStyle(
-                                                  color: waitingTimesList[i] ==
-                                                              '將進站' ||
-                                                          waitingTimesList[i] ==
-                                                              '進站中' ||
-                                                          waitingTimesList[i] ==
-                                                              '2 分' ||
-                                                          waitingTimesList[i] ==
-                                                              '3 分'
-                                                      ? Colors.red
-                                                      : const Color.fromARGB(
-                                                          255, 67, 67, 67),
-                                                  fontSize: 16,
-                                                  //fontWeight: FontWeight.bold
-                                                ),
-                                              ),
-                                              TextSpan(
-                                                text:
-                                                    ' - ${stopNamesZhList[i]}',
-                                                style: TextStyle(
-                                                  color: waitingTimesList[i] ==
-                                                          '進站中'
-                                                      ? Colors.red
-                                                      : const Color.fromARGB(
-                                                          255, 67, 67, 67),
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        /*Text(
-                                          '${waitingTimesList[i]} - ${stopNamesZhList[i]}',
-                                          style: TextStyle(
-                                            //backgroundColor: waitingTimesList[
-                                            color: waitingTimesList[i] == '將進站'
-                                                ? Colors.red
-                                                : null,
-                                          ),
-                                        ),*/
+  Widget _buildBody() {
+    if (_loadingStops) return const Center(child: CircularProgressIndicator());
+    if (_stopsError != null) {
+      return Center(
+          child: QueryMessage(message: _stopsError!, onRetry: _loadStops));
+    }
+    if (_patterns.isEmpty) {
+      return const Center(child: QueryMessage(message: '此路線目前沒有站序資料。'));
+    }
+    return DefaultTabController(
+      length: _patterns.length,
+      initialIndex: _selectedPattern,
+      child: Column(children: [
+        // 回到原本可直接點選／左右滑動的去返程分頁，不需展開選單。
+        TabBar(
+          isScrollable: _patterns.length > 2,
+          labelColor: Colors.blue,
+          unselectedLabelColor: Colors.grey,
+          onTap: (index) => _selectedPattern = index,
+          tabs: _patterns
+              .map((pattern) => Tab(text: _tabLabel(pattern)))
+              .toList(),
+        ),
+        if (_arrivals != null)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            child: Text('取得於 ${_timeLabel(_arrivals!.fetchedAt)}',
+                style: const TextStyle(fontSize: 12, color: Colors.black54)),
+          ),
+        if (_arrivalError != null)
+          QueryMessage(
+              message: _arrivalError!, onRetry: _refreshing ? null : _refresh),
+        if (_refreshing) const LinearProgressIndicator(),
+        Expanded(
+            child: TabBarView(children: _patterns.map(_stopList).toList())),
+      ]),
+    );
+  }
 
-                                        onTap: () {
-                                          showModalBottomSheet(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: <Widget>[
-                                                  TextField(
-                                                    textAlign: TextAlign.center,
-                                                    readOnly: true,
-                                                    decoration: InputDecoration(
-                                                      hintText:
-                                                          '$busCode - 往${stopNameStr[direction]} - ${stopNamesZhList[i]}',
-                                                      hintStyle:
-                                                          const TextStyle(
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      136,
-                                                                      110,
-                                                                      110,
-                                                                      110)),
-                                                      border: InputBorder.none,
-                                                    ),
-                                                  ),
-                                                  ListTile(
-                                                    leading: const Icon(Icons
-                                                        .directions_bus_filled),
-                                                    title:
-                                                        const Text('新增為常用站牌'),
-                                                    onTap: () {
-                                                      //丟值過去
-                                                      Navigator.of(context)
-                                                          .push(
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              MyRoutineStopPage(
-                                                            busCode: busCode,
-                                                            stopDirectionZh:
-                                                                stopNameStr[
-                                                                    direction],
-                                                            stopNameZh:
-                                                                stopNamesZhList[
-                                                                    i],
-                                                            estimateTime:
-                                                                waitingTimesList[
-                                                                    i],
-                                                            //"9",
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        },
-                                      ),
-                                  ],
-                                );
-                              },
-                            );
-                          } else if (snapshotEstimate.hasError) {
-                            return Text('${snapshotEstimate.error}');
-                          }
-                          return const CircularProgressIndicator();
-                        },
-                      );
-                    }).toList(),
-                  ),
-                ),
-              );
-            } else if (snapshot.hasError) {
-              return Text('${snapshot.error}');
-            }
-            return const CircularProgressIndicator();
+  String _tabLabel(BusStop pattern) {
+    final destination = pattern.direction == 0
+        ? widget.route.destinationStopNameZh
+        : pattern.direction == 1
+            ? widget.route.departureStopNameZh
+            : pattern.stops.isEmpty
+                ? pattern.directionLabel
+                : pattern.stops.last.name;
+    final sameDirection =
+        _patterns.where((p) => p.direction == pattern.direction).length;
+    return sameDirection > 1
+        ? '${pattern.subRouteName} 往 $destination'
+        : '往 $destination';
+  }
+
+  Widget _stopList(BusStop pattern) => RefreshIndicator(
+        onRefresh: _refresh,
+        child: ListView.builder(
+          key: PageStorageKey((pattern.subRouteUid, pattern.direction)),
+          physics: const AlwaysScrollableScrollPhysics(),
+          itemCount: pattern.stops.length,
+          itemBuilder: (context, index) {
+            final stop = pattern.stops[index];
+            final arrival =
+                _arrivals?.find(pattern, stop, routePatterns: _patterns);
+            final label = arrival?.label ?? '暫無預估';
+            final near = arrival?.stopStatus == 0 &&
+                arrival?.estimateTime != null &&
+                arrival!.estimateTime! >= 0 &&
+                arrival.estimateTime! <= 180;
+            return ListTile(
+              title: Text.rich(
+                  TextSpan(children: [
+                    TextSpan(
+                        text: '$label - ',
+                        style: TextStyle(
+                            color: near ? Colors.red : Colors.black87)),
+                    TextSpan(
+                        text: stop.name,
+                        style: TextStyle(
+                            color:
+                                label == '進站中' ? Colors.red : Colors.black87)),
+                  ]),
+                  style: const TextStyle(fontSize: 16)),
+              onTap: () => _showStopActions(pattern, stop),
+            );
           },
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        fixedColor: const Color.fromARGB(255, 54, 212, 244),
-        unselectedItemColor: Colors.grey.shade500,
-        type: BottomNavigationBarType.fixed,
-        iconSize: 30,
-        showSelectedLabels: true,
-        showUnselectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_location_alt),
-            label: 'Nearby',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.map_outlined),
-            label: 'Map',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-      ),
-    );
+      );
+
+  void _showStopActions(BusStop pattern, RouteStop stop) {
+    final favorite =
+        FavoriteStop(route: widget.route, pattern: pattern, stop: stop);
+    final alreadySaved = favoritesStore.contains(favorite);
+    showModalBottomSheet<void>(
+        context: context,
+        builder: (sheetContext) => SafeArea(
+              child: Column(mainAxisSize: MainAxisSize.min, children: [
+                Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text(
+                        '${widget.route.routeName} - ${_tabLabel(pattern)} - ${stop.name}')),
+                ListTile(
+                  leading: const Icon(Icons.directions_bus_filled),
+                  title: Text(alreadySaved ? '移除常用站牌' : '新增為常用站牌'),
+                  onTap: () {
+                    favoritesStore.toggle(favorite);
+                    Navigator.of(sheetContext).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(alreadySaved ? '已移除常用站牌' : '已新增常用站牌'),
+                    ));
+                  },
+                ),
+              ]),
+            ));
   }
 }

@@ -11,6 +11,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: 1.0.6
   http: 1.1.0
+  http_parser: 4.0.2
 
 dev_dependencies:
   flutter_test:
@@ -19,3 +20,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  # 本機設定檔由 App 自行讀取；實際憑證仍由 .gitignore 排除。
+  assets:
+    - config/

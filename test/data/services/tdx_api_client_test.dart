@@ -90,6 +90,7 @@ void main() {
 
   test('a late 401 for an old token does not discard the renewed token',
       () async {
+    var now = DateTime.utc(2026);
     var authCalls = 0;
     var oldGets = 0;
     final lateResponse = Completer<http.Response>();
@@ -102,10 +103,12 @@ void main() {
         return lateResponse.future;
       }
       return http.Response('[]', 200);
-    }));
+    }), now: () => now);
     final first = api.get(apiUri);
     final second = api.get(apiUri);
     expect((await first).statusCode, 200);
+    // 認證與資料重試共用每分鐘 5 次額度，延後舊回應以測試新視窗。
+    now = now.add(const Duration(seconds: 61));
     lateResponse.complete(http.Response('', 401));
     expect((await second).statusCode, 200);
     expect(authCalls, 2);

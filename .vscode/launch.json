@@ -5,8 +5,7 @@
       "name": "bus_searcher（本機 TDX 設定）",
       "type": "dart",
       "request": "launch",
-      "program": "lib/main.dart",
-      "toolArgs": ["--dart-define-from-file=config/tdx.local.json"]
+      "program": "lib/main.dart"
     }
   ]
 }

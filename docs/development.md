@@ -51,16 +51,16 @@ fvm flutter devices
 
 ## 5. 執行 app
 
-先確認 `config/tdx.local.json` 已填入本機憑證；設定步驟與保護限制請參閱 [TDX 認證說明](tdx_auth.md)。
+先確認 `config/tdx.local.json` 已填入本機憑證，App 啟動時會自行載入，不需要額外腳本或參數；設定步驟與保護限制請參閱 [TDX 認證說明](tdx_auth.md)。
 
 ```sh
-fvm flutter run --dart-define-from-file=config/tdx.local.json
+fvm flutter run
 ```
 
 出現裝置清單時選擇 iPhone Simulator。如果有多部裝置，也可以指定 `fvm flutter devices` 顯示的 device ID：
 
 ```sh
-fvm flutter run -d <device-id> --dart-define-from-file=config/tdx.local.json
+fvm flutter run -d <device-id>
 ```
 
 執行期間可按 `r` 進行 hot reload、`R` 進行 hot restart、`q` 結束此次執行。
@@ -68,7 +68,7 @@ fvm flutter run -d <device-id> --dart-define-from-file=config/tdx.local.json
 若要單獨確認 iOS Simulator 建置是否成功，可執行：
 
 ```sh
-fvm flutter build ios --simulator --debug --dart-define-from-file=config/tdx.local.json
+fvm flutter build ios --simulator --debug
 ```
 
 ## 6. 在 VS Code 開發
@@ -83,7 +83,7 @@ fvm flutter build ios --simulator --debug --dart-define-from-file=config/tdx.loc
 fvm flutter pub get
 fvm flutter analyze
 fvm flutter devices
-fvm flutter run --dart-define-from-file=config/tdx.local.json
+fvm flutter run
 ```
 
 套件下載成功與 app 啟動，僅代表本機建置環境可用；公車資料查詢仍取決於 TDX API、憑證與網路狀態。

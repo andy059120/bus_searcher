@@ -1,0 +1,1216 @@
+[
+  {
+    "RouteUID": "TPE10961",
+    "SubRouteUID": "TPE109610",
+    "SubRouteName": {
+      "Zh_tw": "262去程半",
+      "En": "262"
+    },
+    "Direction": 0,
+    "Stops": [
+      {
+        "StopUID": "TPE40495",
+        "StopName": {
+          "Zh_tw": "宏國德霖科技大學",
+          "En": "Hungkuo Delin University of Technology"
+        },
+        "StopSequence": 1
+      },
+      {
+        "StopUID": "TPE40496",
+        "StopName": {
+          "Zh_tw": "清和里",
+          "En": "Qinghe Village"
+        },
+        "StopSequence": 2
+      },
+      {
+        "StopUID": "TPE40497",
+        "StopName": {
+          "Zh_tw": "檳榔科",
+          "En": "Binlangke"
+        },
+        "StopSequence": 3
+      },
+      {
+        "StopUID": "TPE40498",
+        "StopName": {
+          "Zh_tw": "清水派出所",
+          "En": "Qingshui Police Substation"
+        },
+        "StopSequence": 4
+      },
+      {
+        "StopUID": "TPE40499",
+        "StopName": {
+          "Zh_tw": "清水",
+          "En": "Qingshui"
+        },
+        "StopSequence": 5
+      },
+      {
+        "StopUID": "TPE163438",
+        "StopName": {
+          "Zh_tw": "臺灣新北地方法院(青雲)",
+          "En": "New Taipei District Court(Qingyun)"
+        },
+        "StopSequence": 6
+      },
+      {
+        "StopUID": "TPE40500",
+        "StopName": {
+          "Zh_tw": "土城看守所",
+          "En": "Tucheng Detention Center"
+        },
+        "StopSequence": 7
+      },
+      {
+        "StopUID": "TPE40501",
+        "StopName": {
+          "Zh_tw": "廣福里",
+          "En": "Chongqing & Zhongxiao Rd. Entrance"
+        },
+        "StopSequence": 8
+      },
+      {
+        "StopUID": "TPE40502",
+        "StopName": {
+          "Zh_tw": "廣福國小",
+          "En": "Guangfu Elementary School"
+        },
+        "StopSequence": 9
+      },
+      {
+        "StopUID": "TPE40503",
+        "StopName": {
+          "Zh_tw": "裕民路口(學府路)",
+          "En": "Yumin Rd. Entrance(Xuefu Rd.)"
+        },
+        "StopSequence": 10
+      },
+      {
+        "StopUID": "TPE40504",
+        "StopName": {
+          "Zh_tw": "新北高工(學府)",
+          "En": "New Taipei Senior High School"
+        },
+        "StopSequence": 11
+      },
+      {
+        "StopUID": "TPE40505",
+        "StopName": {
+          "Zh_tw": "學士路口",
+          "En": "Xueshi Rd. Entrance"
+        },
+        "StopSequence": 12
+      },
+      {
+        "StopUID": "TPE57568",
+        "StopName": {
+          "Zh_tw": "裕民路口(金城路)",
+          "En": "Yumin Rd. Entrance"
+        },
+        "StopSequence": 13
+      },
+      {
+        "StopUID": "TPE40506",
+        "StopName": {
+          "Zh_tw": "中正國中",
+          "En": "Zhongzheng Junior High School"
+        },
+        "StopSequence": 14
+      },
+      {
+        "StopUID": "TPE40507",
+        "StopName": {
+          "Zh_tw": "臺灣新北地方法院(金城)",
+          "En": "Taiwan New Taipei District Court(Jincheng)"
+        },
+        "StopSequence": 15
+      },
+      {
+        "StopUID": "TPE40508",
+        "StopName": {
+          "Zh_tw": "清水國小",
+          "En": "Qingshui Elementary School"
+        },
+        "StopSequence": 16
+      },
+      {
+        "StopUID": "TPE40509",
+        "StopName": {
+          "Zh_tw": "永豐路口",
+          "En": "Yongfeng Rd. Entrance"
+        },
+        "StopSequence": 17
+      },
+      {
+        "StopUID": "TPE40510",
+        "StopName": {
+          "Zh_tw": "平和里",
+          "En": "Pinghe Village"
+        },
+        "StopSequence": 18
+      },
+      {
+        "StopUID": "TPE40511",
+        "StopName": {
+          "Zh_tw": "變電所",
+          "En": "Transformer Station"
+        },
+        "StopSequence": 19
+      },
+      {
+        "StopUID": "TPE40512",
+        "StopName": {
+          "Zh_tw": "駕訓中心",
+          "En": "Drivers Training Center"
+        },
+        "StopSequence": 20
+      },
+      {
+        "StopUID": "TPE40513",
+        "StopName": {
+          "Zh_tw": "中和高中",
+          "En": "Zhonghe High School"
+        },
+        "StopSequence": 21
+      },
+      {
+        "StopUID": "TPE40514",
+        "StopName": {
+          "Zh_tw": "連城路",
+          "En": "Liancheng Rd."
+        },
+        "StopSequence": 22
+      },
+      {
+        "StopUID": "TPE40515",
+        "StopName": {
+          "Zh_tw": "中正路",
+          "En": "Zhongzheng Rd."
+        },
+        "StopSequence": 23
+      },
+      {
+        "StopUID": "TPE29385",
+        "StopName": {
+          "Zh_tw": "平河里",
+          "En": "Pinghe Village"
+        },
+        "StopSequence": 24
+      },
+      {
+        "StopUID": "TPE40516",
+        "StopName": {
+          "Zh_tw": "中原里",
+          "En": "Zhongyuan Village"
+        },
+        "StopSequence": 25
+      },
+      {
+        "StopUID": "TPE40518",
+        "StopName": {
+          "Zh_tw": "中山錦和路口",
+          "En": "Zhongshan & Jinhe Intersection"
+        },
+        "StopSequence": 26
+      },
+      {
+        "StopUID": "TPE202487",
+        "StopName": {
+          "Zh_tw": "捷運橋和站",
+          "En": "MRT Qiaohe Sta."
+        },
+        "StopSequence": 27
+      },
+      {
+        "StopUID": "TPE40519",
+        "StopName": {
+          "Zh_tw": "中和保養廠",
+          "En": "Zhonghe Maintenance Plant"
+        },
+        "StopSequence": 28
+      },
+      {
+        "StopUID": "TPE201650",
+        "StopName": {
+          "Zh_tw": "家美工業區",
+          "En": "Jiamei industrial Area"
+        },
+        "StopSequence": 29
+      },
+      {
+        "StopUID": "TPE40520",
+        "StopName": {
+          "Zh_tw": "捷運中和站(中山路)",
+          "En": "MRT Zhonghe Sta. (Zhongshan Rd.)"
+        },
+        "StopSequence": 30
+      },
+      {
+        "StopUID": "TPE40521",
+        "StopName": {
+          "Zh_tw": "連城路口",
+          "En": "Liancheng Rd. Entrance"
+        },
+        "StopSequence": 31
+      },
+      {
+        "StopUID": "TPE40522",
+        "StopName": {
+          "Zh_tw": "中和區公所(景平路)",
+          "En": "Zhonghe Dist. Office (Jingping Rd.)"
+        },
+        "StopSequence": 32
+      },
+      {
+        "StopUID": "TPE40523",
+        "StopName": {
+          "Zh_tw": "南華路口",
+          "En": "Yuantong&Jingping Rd. Entrance"
+        },
+        "StopSequence": 33
+      },
+      {
+        "StopUID": "TPE40524",
+        "StopName": {
+          "Zh_tw": "捷運景安站(景平路)",
+          "En": "MRT Jingan Sta.(Jingping Rd.)"
+        },
+        "StopSequence": 34
+      },
+      {
+        "StopUID": "TPE40525",
+        "StopName": {
+          "Zh_tw": "中和教會",
+          "En": "Zhonghe Church"
+        },
+        "StopSequence": 35
+      },
+      {
+        "StopUID": "TPE40527",
+        "StopName": {
+          "Zh_tw": "智光商職",
+          "En": "Chih-Kuang Senior Commercial & Industrial Vocational High School"
+        },
+        "StopSequence": 36
+      },
+      {
+        "StopUID": "TPE40528",
+        "StopName": {
+          "Zh_tw": "中興二村",
+          "En": "Zhongxing Village 2"
+        },
+        "StopSequence": 37
+      },
+      {
+        "StopUID": "TPE40529",
+        "StopName": {
+          "Zh_tw": "中興新村",
+          "En": "Zhongxing New Village"
+        },
+        "StopSequence": 38
+      },
+      {
+        "StopUID": "TPE40530",
+        "StopName": {
+          "Zh_tw": "得和路口",
+          "En": "Dehe Rd. Entrance"
+        },
+        "StopSequence": 39
+      },
+      {
+        "StopUID": "TPE40531",
+        "StopName": {
+          "Zh_tw": "永和國小",
+          "En": "Yonghe Elementary School"
+        },
+        "StopSequence": 40
+      },
+      {
+        "StopUID": "TPE40532",
+        "StopName": {
+          "Zh_tw": "福和里",
+          "En": "Fuhe Village"
+        },
+        "StopSequence": 41
+      },
+      {
+        "StopUID": "TPE40533",
+        "StopName": {
+          "Zh_tw": "大新街",
+          "En": "Daxin St."
+        },
+        "StopSequence": 42
+      },
+      {
+        "StopUID": "TPE40534",
+        "StopName": {
+          "Zh_tw": "正興里",
+          "En": "Zhengxing Village"
+        },
+        "StopSequence": 43
+      },
+      {
+        "StopUID": "TPE40536",
+        "StopName": {
+          "Zh_tw": "捷運頂溪站",
+          "En": "MRT Dingxi Sta."
+        },
+        "StopSequence": 44
+      },
+      {
+        "StopUID": "TPE40537",
+        "StopName": {
+          "Zh_tw": "中正橋頭",
+          "En": "Zhongzheng Bridge Stop"
+        },
+        "StopSequence": 45
+      },
+      {
+        "StopUID": "TPE40538",
+        "StopName": {
+          "Zh_tw": "重慶南路三段(中正橋)",
+          "En": "Chongqing S. Road Sec. 3 (Zhongzheng Bridge)"
+        },
+        "StopSequence": 46
+      },
+      {
+        "StopUID": "TPE40539",
+        "StopName": {
+          "Zh_tw": "寧波重慶路口",
+          "En": "Ningpo and Chongqing Intersection"
+        },
+        "StopSequence": 47
+      },
+      {
+        "StopUID": "TPE40540",
+        "StopName": {
+          "Zh_tw": "中正二分局",
+          "En": "Zhongzheng 2nd Police Dist."
+        },
+        "StopSequence": 48
+      },
+      {
+        "StopUID": "TPE40541",
+        "StopName": {
+          "Zh_tw": "一女中(重慶)",
+          "En": "Taipei First Girls High School (Chongqing)"
+        },
+        "StopSequence": 49
+      },
+      {
+        "StopUID": "TPE40542",
+        "StopName": {
+          "Zh_tw": "博愛路",
+          "En": "Boai Rd."
+        },
+        "StopSequence": 50
+      },
+      {
+        "StopUID": "TPE40543",
+        "StopName": {
+          "Zh_tw": "臺北郵局",
+          "En": "Taipei Post Office"
+        },
+        "StopSequence": 51
+      },
+      {
+        "StopUID": "TPE40544",
+        "StopName": {
+          "Zh_tw": "臺北車站(忠孝)",
+          "En": "Taipei Main Sta. (Zhongxiao)"
+        },
+        "StopSequence": 52
+      },
+      {
+        "StopUID": "TPE40545",
+        "StopName": {
+          "Zh_tw": "捷運善導寺站",
+          "En": "MRT Shandao Temple Sta."
+        },
+        "StopSequence": 53
+      },
+      {
+        "StopUID": "TPE40546",
+        "StopName": {
+          "Zh_tw": "華山文創園區",
+          "En": "Huashan Cultural and Creative Industries Park"
+        },
+        "StopSequence": 54
+      },
+      {
+        "StopUID": "TPE40547",
+        "StopName": {
+          "Zh_tw": "忠孝國小",
+          "En": "Zhongxiao Elementary School"
+        },
+        "StopSequence": 55
+      },
+      {
+        "StopUID": "TPE40548",
+        "StopName": {
+          "Zh_tw": "臺北科技大學(忠孝)",
+          "En": "Nat'l Taipei U. of Technology (Zhongxiao)"
+        },
+        "StopSequence": 56
+      },
+      {
+        "StopUID": "TPE40549",
+        "StopName": {
+          "Zh_tw": "正義郵局",
+          "En": "Zhengyi Post Office"
+        },
+        "StopSequence": 57
+      },
+      {
+        "StopUID": "TPE40550",
+        "StopName": {
+          "Zh_tw": "懷生國中",
+          "En": "Huaisheng Junior High School"
+        },
+        "StopSequence": 58
+      },
+      {
+        "StopUID": "TPE40552",
+        "StopName": {
+          "Zh_tw": "頂好市場",
+          "En": "Dinghao Market"
+        },
+        "StopSequence": 59
+      },
+      {
+        "StopUID": "TPE40553",
+        "StopName": {
+          "Zh_tw": "捷運忠孝敦化站",
+          "En": "MRT Zhongxiao Dunhua Sta."
+        },
+        "StopSequence": 60
+      },
+      {
+        "StopUID": "TPE40554",
+        "StopName": {
+          "Zh_tw": "市民大道口",
+          "En": "Civic Boulevard Entrance"
+        },
+        "StopSequence": 61
+      },
+      {
+        "StopUID": "TPE40555",
+        "StopName": {
+          "Zh_tw": "市立體育場",
+          "En": "Municipal　gymnasiumn"
+        },
+        "StopSequence": 62
+      },
+      {
+        "StopUID": "TPE40556",
+        "StopName": {
+          "Zh_tw": "臺北小巨蛋",
+          "En": "Taipei Arena"
+        },
+        "StopSequence": 63
+      },
+      {
+        "StopUID": "TPE40557",
+        "StopName": {
+          "Zh_tw": "長庚醫院",
+          "En": "Chang-Gung Memorial Hospital"
+        },
+        "StopSequence": 64
+      },
+      {
+        "StopUID": "TPE40558",
+        "StopName": {
+          "Zh_tw": "公教住宅",
+          "En": "Civil Service Housing"
+        },
+        "StopSequence": 65
+      },
+      {
+        "StopUID": "TPE40559",
+        "StopName": {
+          "Zh_tw": "介壽國中",
+          "En": "Jieshou Junior High School"
+        },
+        "StopSequence": 66
+      },
+      {
+        "StopUID": "TPE40560",
+        "StopName": {
+          "Zh_tw": "聯合二村",
+          "En": "Lianhe Village 2"
+        },
+        "StopSequence": 67
+      },
+      {
+        "StopUID": "TPE40561",
+        "StopName": {
+          "Zh_tw": "民生社區活動中心",
+          "En": "Minsheng Activity Center"
+        },
+        "StopSequence": 68
+      },
+      {
+        "StopUID": "TPE40562",
+        "StopName": {
+          "Zh_tw": "新東街口",
+          "En": "Xindong St. Entrance"
+        },
+        "StopSequence": 69
+      },
+      {
+        "StopUID": "TPE55744",
+        "StopName": {
+          "Zh_tw": "塔悠路",
+          "En": "Tayou Rd."
+        },
+        "StopSequence": 70
+      },
+      {
+        "StopUID": "TPE55745",
+        "StopName": {
+          "Zh_tw": "撫遠抽水站",
+          "En": "Fuyuan Pumping Sta."
+        },
+        "StopSequence": 71
+      },
+      {
+        "StopUID": "TPE55746",
+        "StopName": {
+          "Zh_tw": "塔悠疏散門",
+          "En": "Tayou Door"
+        },
+        "StopSequence": 72
+      }
+    ]
+  },
+  {
+    "RouteUID": "TPE10961",
+    "SubRouteUID": "TPE161157",
+    "SubRouteName": {
+      "Zh_tw": "262返程半",
+      "En": "262"
+    },
+    "Direction": 1,
+    "Stops": [
+      {
+        "StopUID": "TPE40566",
+        "StopName": {
+          "Zh_tw": "莊敬里",
+          "En": "Zhuangjing Village"
+        },
+        "StopSequence": 1
+      },
+      {
+        "StopUID": "TPE40567",
+        "StopName": {
+          "Zh_tw": "新益里",
+          "En": "Xinyi Village"
+        },
+        "StopSequence": 2
+      },
+      {
+        "StopUID": "TPE40568",
+        "StopName": {
+          "Zh_tw": "民生國中",
+          "En": "Minsheng Junior High School"
+        },
+        "StopSequence": 3
+      },
+      {
+        "StopUID": "TPE40569",
+        "StopName": {
+          "Zh_tw": "新東街口",
+          "En": "Xindong St. Entrance"
+        },
+        "StopSequence": 4
+      },
+      {
+        "StopUID": "TPE40570",
+        "StopName": {
+          "Zh_tw": "民生社區活動中心",
+          "En": "Minsheng Activity Center"
+        },
+        "StopSequence": 5
+      },
+      {
+        "StopUID": "TPE40571",
+        "StopName": {
+          "Zh_tw": "聯合二村",
+          "En": "Lianhe Village 2"
+        },
+        "StopSequence": 6
+      },
+      {
+        "StopUID": "TPE40572",
+        "StopName": {
+          "Zh_tw": "介壽國中",
+          "En": "Jieshou Junior High School"
+        },
+        "StopSequence": 7
+      },
+      {
+        "StopUID": "TPE40573",
+        "StopName": {
+          "Zh_tw": "公教住宅",
+          "En": "Civil Service Housing"
+        },
+        "StopSequence": 8
+      },
+      {
+        "StopUID": "TPE40574",
+        "StopName": {
+          "Zh_tw": "富錦街口",
+          "En": "Fujin St. Entrance"
+        },
+        "StopSequence": 9
+      },
+      {
+        "StopUID": "TPE40575",
+        "StopName": {
+          "Zh_tw": "松山機場",
+          "En": "Songshan Airport"
+        },
+        "StopSequence": 10
+      },
+      {
+        "StopUID": "TPE40577",
+        "StopName": {
+          "Zh_tw": "民生敦化路口",
+          "En": "Minsheng & Dunhua Intersection"
+        },
+        "StopSequence": 11
+      },
+      {
+        "StopUID": "TPE40578",
+        "StopName": {
+          "Zh_tw": "長春敦化路口",
+          "En": "Changchun & Dunhua Roads"
+        },
+        "StopSequence": 12
+      },
+      {
+        "StopUID": "TPE40579",
+        "StopName": {
+          "Zh_tw": "臺北小巨蛋",
+          "En": "Taipei Arena"
+        },
+        "StopSequence": 13
+      },
+      {
+        "StopUID": "TPE40580",
+        "StopName": {
+          "Zh_tw": "八德敦化路口",
+          "En": "Bade & Dunhua Intersection"
+        },
+        "StopSequence": 14
+      },
+      {
+        "StopUID": "TPE40581",
+        "StopName": {
+          "Zh_tw": "市民敦化路口",
+          "En": "Civic Blvd. and Dunhua Intersection"
+        },
+        "StopSequence": 15
+      },
+      {
+        "StopUID": "TPE40582",
+        "StopName": {
+          "Zh_tw": "頂好市場",
+          "En": "Dinghao Market"
+        },
+        "StopSequence": 16
+      },
+      {
+        "StopUID": "TPE40583",
+        "StopName": {
+          "Zh_tw": "捷運忠孝復興站",
+          "En": "MRT Zhongxiao Fuxing Sta."
+        },
+        "StopSequence": 17
+      },
+      {
+        "StopUID": "TPE40584",
+        "StopName": {
+          "Zh_tw": "正義郵局",
+          "En": "Zhengyi Post Office"
+        },
+        "StopSequence": 18
+      },
+      {
+        "StopUID": "TPE40585",
+        "StopName": {
+          "Zh_tw": "臺北科技大學(忠孝)",
+          "En": "Nat'l Taipei U. of Technology (Zhongxiao)"
+        },
+        "StopSequence": 19
+      },
+      {
+        "StopUID": "TPE40586",
+        "StopName": {
+          "Zh_tw": "忠孝國小",
+          "En": "Zhongxiao Elementary School"
+        },
+        "StopSequence": 20
+      },
+      {
+        "StopUID": "TPE40587",
+        "StopName": {
+          "Zh_tw": "華山文創園區",
+          "En": "Huashan Cultural and Creative Industries Park"
+        },
+        "StopSequence": 21
+      },
+      {
+        "StopUID": "TPE40588",
+        "StopName": {
+          "Zh_tw": "捷運善導寺站",
+          "En": "MRT Shandao Temple Sta."
+        },
+        "StopSequence": 22
+      },
+      {
+        "StopUID": "TPE40589",
+        "StopName": {
+          "Zh_tw": "臺北車站(忠孝)",
+          "En": "Taipei Main Sta. (Zhongxiao)"
+        },
+        "StopSequence": 23
+      },
+      {
+        "StopUID": "TPE40590",
+        "StopName": {
+          "Zh_tw": "中華路北站",
+          "En": "Zhonghua Rd. N. Stop"
+        },
+        "StopSequence": 24
+      },
+      {
+        "StopUID": "TPE40591",
+        "StopName": {
+          "Zh_tw": "捷運西門站",
+          "En": "MRT Ximen Sta."
+        },
+        "StopSequence": 25
+      },
+      {
+        "StopUID": "TPE40592",
+        "StopName": {
+          "Zh_tw": "小南門(和平院區)",
+          "En": "Xiaonanmen (TCUH Heping Branch)"
+        },
+        "StopSequence": 26
+      },
+      {
+        "StopUID": "TPE40593",
+        "StopName": {
+          "Zh_tw": "捷運小南門站",
+          "En": "MRT Xiaonanmen Sta."
+        },
+        "StopSequence": 27
+      },
+      {
+        "StopUID": "TPE40594",
+        "StopName": {
+          "Zh_tw": "中正二分局",
+          "En": "Zhongzheng 2nd Police Dist."
+        },
+        "StopSequence": 28
+      },
+      {
+        "StopUID": "TPE40595",
+        "StopName": {
+          "Zh_tw": "寧波重慶路口",
+          "En": "Ningpo and Chongqing Intersection"
+        },
+        "StopSequence": 29
+      },
+      {
+        "StopUID": "TPE40596",
+        "StopName": {
+          "Zh_tw": "重慶南路三段(中正橋)",
+          "En": "Chongqing S. Road Sec. 3 (Zhongzheng Bridge)"
+        },
+        "StopSequence": 30
+      },
+      {
+        "StopUID": "TPE40597",
+        "StopName": {
+          "Zh_tw": "捷運頂溪站",
+          "En": "MRT Dingxi Sta."
+        },
+        "StopSequence": 31
+      },
+      {
+        "StopUID": "TPE40598",
+        "StopName": {
+          "Zh_tw": "中興街口",
+          "En": "Zhongxing St. Entrance"
+        },
+        "StopSequence": 32
+      },
+      {
+        "StopUID": "TPE40599",
+        "StopName": {
+          "Zh_tw": "豫溪街口(中正路)",
+          "En": "Yuxi St. Entrance(Zhongzheng Rd.)"
+        },
+        "StopSequence": 33
+      },
+      {
+        "StopUID": "TPE40600",
+        "StopName": {
+          "Zh_tw": "大新街",
+          "En": "Daxin St."
+        },
+        "StopSequence": 34
+      },
+      {
+        "StopUID": "TPE40601",
+        "StopName": {
+          "Zh_tw": "福和里",
+          "En": "Fuhe Village"
+        },
+        "StopSequence": 35
+      },
+      {
+        "StopUID": "TPE40602",
+        "StopName": {
+          "Zh_tw": "永和國小",
+          "En": "Yonghe Elementary School"
+        },
+        "StopSequence": 36
+      },
+      {
+        "StopUID": "TPE40603",
+        "StopName": {
+          "Zh_tw": "得和路口",
+          "En": "Dehe Rd. Entrance"
+        },
+        "StopSequence": 37
+      },
+      {
+        "StopUID": "TPE40604",
+        "StopName": {
+          "Zh_tw": "中興新村",
+          "En": "Zhongxing New Village"
+        },
+        "StopSequence": 38
+      },
+      {
+        "StopUID": "TPE40605",
+        "StopName": {
+          "Zh_tw": "中興二村",
+          "En": "Zhongxing Village 2"
+        },
+        "StopSequence": 39
+      },
+      {
+        "StopUID": "TPE40606",
+        "StopName": {
+          "Zh_tw": "智光商職",
+          "En": "Chih-Kuang Senior Commercial & Industrial Vocational High School"
+        },
+        "StopSequence": 40
+      },
+      {
+        "StopUID": "TPE202723",
+        "StopName": {
+          "Zh_tw": "南勢角(景平路)",
+          "En": "Nanshijiao(Jingping Rd.)"
+        },
+        "StopSequence": 41
+      },
+      {
+        "StopUID": "TPE40608",
+        "StopName": {
+          "Zh_tw": "中和教會",
+          "En": "Zhonghe Church"
+        },
+        "StopSequence": 42
+      },
+      {
+        "StopUID": "TPE40609",
+        "StopName": {
+          "Zh_tw": "捷運景安站(景平路)",
+          "En": "MRT Jingan Sta.(Jingping Rd.)"
+        },
+        "StopSequence": 43
+      },
+      {
+        "StopUID": "TPE40610",
+        "StopName": {
+          "Zh_tw": "南華路口",
+          "En": "Yuantong&Jingping Rd. Entrance"
+        },
+        "StopSequence": 44
+      },
+      {
+        "StopUID": "TPE40611",
+        "StopName": {
+          "Zh_tw": "中和區公所(景平路)",
+          "En": "Zhonghe Dist. Office (Jingping Rd.)"
+        },
+        "StopSequence": 45
+      },
+      {
+        "StopUID": "TPE142251",
+        "StopName": {
+          "Zh_tw": "連城路口",
+          "En": "Liancheng Rd. Entrance"
+        },
+        "StopSequence": 46
+      },
+      {
+        "StopUID": "TPE40613",
+        "StopName": {
+          "Zh_tw": "捷運中和站(中山路)",
+          "En": "MRT Zhonghe Sta.(Zhongshan Rd.)"
+        },
+        "StopSequence": 47
+      },
+      {
+        "StopUID": "TPE199730",
+        "StopName": {
+          "Zh_tw": "家美工業區",
+          "En": "Jiamei Industrial Park"
+        },
+        "StopSequence": 48
+      },
+      {
+        "StopUID": "TPE40615",
+        "StopName": {
+          "Zh_tw": "中和保養廠",
+          "En": "Zhonghe Maintenance Plant"
+        },
+        "StopSequence": 49
+      },
+      {
+        "StopUID": "TPE202488",
+        "StopName": {
+          "Zh_tw": "捷運橋和站",
+          "En": "MRT Qiaohe Sta."
+        },
+        "StopSequence": 50
+      },
+      {
+        "StopUID": "TPE56162",
+        "StopName": {
+          "Zh_tw": "中山錦和路口",
+          "En": "Zhongshan and Jinhe Intersection"
+        },
+        "StopSequence": 51
+      },
+      {
+        "StopUID": "TPE40617",
+        "StopName": {
+          "Zh_tw": "中原里",
+          "En": "Zhongyuan Village"
+        },
+        "StopSequence": 52
+      },
+      {
+        "StopUID": "TPE29386",
+        "StopName": {
+          "Zh_tw": "平河里",
+          "En": "Pinghe Village"
+        },
+        "StopSequence": 53
+      },
+      {
+        "StopUID": "TPE40618",
+        "StopName": {
+          "Zh_tw": "中正路",
+          "En": "Zhongzheng Rd."
+        },
+        "StopSequence": 54
+      },
+      {
+        "StopUID": "TPE57409",
+        "StopName": {
+          "Zh_tw": "心中市",
+          "En": "Xinzhong Shi Community"
+        },
+        "StopSequence": 55
+      },
+      {
+        "StopUID": "TPE40619",
+        "StopName": {
+          "Zh_tw": "連城路",
+          "En": "Liancheng Rd."
+        },
+        "StopSequence": 56
+      },
+      {
+        "StopUID": "TPE40620",
+        "StopName": {
+          "Zh_tw": "中和高中",
+          "En": "Zhonghe High School"
+        },
+        "StopSequence": 57
+      },
+      {
+        "StopUID": "TPE40621",
+        "StopName": {
+          "Zh_tw": "駕訓中心",
+          "En": "Drivers Training Center"
+        },
+        "StopSequence": 58
+      },
+      {
+        "StopUID": "TPE40622",
+        "StopName": {
+          "Zh_tw": "變電所",
+          "En": "Transformer Station"
+        },
+        "StopSequence": 59
+      },
+      {
+        "StopUID": "TPE40623",
+        "StopName": {
+          "Zh_tw": "平和里",
+          "En": "Pinghe Village"
+        },
+        "StopSequence": 60
+      },
+      {
+        "StopUID": "TPE40624",
+        "StopName": {
+          "Zh_tw": "永豐路口",
+          "En": "Yongfeng Rd. Entrance"
+        },
+        "StopSequence": 61
+      },
+      {
+        "StopUID": "TPE40625",
+        "StopName": {
+          "Zh_tw": "清水國小",
+          "En": "Qingshui Elementary School"
+        },
+        "StopSequence": 62
+      },
+      {
+        "StopUID": "TPE40626",
+        "StopName": {
+          "Zh_tw": "臺灣新北地方法院(金城)",
+          "En": "New Taipei District Court(Jincheng)"
+        },
+        "StopSequence": 63
+      },
+      {
+        "StopUID": "TPE40627",
+        "StopName": {
+          "Zh_tw": "中正國中",
+          "En": "Zhongzheng Junior High School"
+        },
+        "StopSequence": 64
+      },
+      {
+        "StopUID": "TPE57569",
+        "StopName": {
+          "Zh_tw": "裕民路口(金城路)",
+          "En": "Yumin Rd. Entrance(Jincheng Rd.)"
+        },
+        "StopSequence": 65
+      },
+      {
+        "StopUID": "TPE40628",
+        "StopName": {
+          "Zh_tw": "學士路口",
+          "En": "Xueshi Rd. Entrance"
+        },
+        "StopSequence": 66
+      },
+      {
+        "StopUID": "TPE40629",
+        "StopName": {
+          "Zh_tw": "新北高工(學府)",
+          "En": "New Taipei Senior High School"
+        },
+        "StopSequence": 67
+      },
+      {
+        "StopUID": "TPE40630",
+        "StopName": {
+          "Zh_tw": "裕民路口(學府路)",
+          "En": "Yumin Rd. Entrance(Xuefu Rd.)"
+        },
+        "StopSequence": 68
+      },
+      {
+        "StopUID": "TPE40631",
+        "StopName": {
+          "Zh_tw": "廣福國小",
+          "En": "Guangfu Elementary School"
+        },
+        "StopSequence": 69
+      },
+      {
+        "StopUID": "TPE40632",
+        "StopName": {
+          "Zh_tw": "廣福里",
+          "En": "Guangfu Li"
+        },
+        "StopSequence": 70
+      },
+      {
+        "StopUID": "TPE40633",
+        "StopName": {
+          "Zh_tw": "土城看守所",
+          "En": "Tucheng Detention Center"
+        },
+        "StopSequence": 71
+      },
+      {
+        "StopUID": "TPE163439",
+        "StopName": {
+          "Zh_tw": "臺灣新北地方法院(青雲)",
+          "En": "Taiwan New Taipei District Court(Qingyun)"
+        },
+        "StopSequence": 72
+      },
+      {
+        "StopUID": "TPE40634",
+        "StopName": {
+          "Zh_tw": "清水",
+          "En": "Qingshui"
+        },
+        "StopSequence": 73
+      },
+      {
+        "StopUID": "TPE40635",
+        "StopName": {
+          "Zh_tw": "清水派出所",
+          "En": "Qingshui Police Substation"
+        },
+        "StopSequence": 74
+      },
+      {
+        "StopUID": "TPE40636",
+        "StopName": {
+          "Zh_tw": "檳榔科",
+          "En": "Binlangke"
+        },
+        "StopSequence": 75
+      },
+      {
+        "StopUID": "TPE40637",
+        "StopName": {
+          "Zh_tw": "清和里",
+          "En": "Qinghe Village"
+        },
+        "StopSequence": 76
+      },
+      {
+        "StopUID": "TPE40638",
+        "StopName": {
+          "Zh_tw": "宏國德霖科技大學",
+          "En": "Hungkuo Delin University of Technology"
+        },
+        "StopSequence": 77
+      }
+    ]
+  }
+]

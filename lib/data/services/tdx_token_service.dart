@@ -3,16 +3,19 @@ import 'dart:convert';
 
 import 'package:bus_project/config/tdx_credentials.dart';
 import 'package:bus_project/data/services/tdx_exception.dart';
+import 'package:bus_project/data/services/tdx_request_limiter.dart';
 import 'package:http/http.dart' as http;
 
 class TdxTokenService {
   TdxTokenService({
     required http.Client client,
     required TdxCredentials credentials,
+    TdxRequestLimiter? limiter,
     DateTime Function()? now,
     this.requestTimeout = const Duration(seconds: 10),
   })  : _client = client,
         _credentials = credentials,
+        limiter = limiter ?? TdxRequestLimiter(now: now),
         _now = now ?? DateTime.now;
 
   static final _tokenUri = Uri.https('tdx.transportdata.tw',
@@ -20,6 +23,7 @@ class TdxTokenService {
 
   final http.Client _client;
   final TdxCredentials _credentials;
+  final TdxRequestLimiter limiter;
   final DateTime Function() _now;
   final Duration requestTimeout;
   _CachedToken? _cached;
@@ -51,6 +55,8 @@ class TdxTokenService {
     }
 
     final requestedAt = _now();
+    // 正式 app 與資料 API 共用限流器，保守地計入認證的流量。
+    limiter.acquire();
     final request = http.Request('POST', _tokenUri)
       ..followRedirects = false
       ..headers['Accept'] = 'application/json'
@@ -73,6 +79,10 @@ class TdxTokenService {
     }
 
     if (response.statusCode != 200) {
+      if (response.statusCode == 429) {
+        limiter.recordRateLimit(response.headers['retry-after']);
+        throw const TdxException('TDX 認證暫時受限，請稍後重試。', statusCode: 429);
+      }
       throw TdxException(
           'TDX 認證失敗（HTTP ${response.statusCode}），請確認 API 金鑰與服務權限。',
           statusCode: response.statusCode);

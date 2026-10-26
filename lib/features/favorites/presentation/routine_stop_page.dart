@@ -1,134 +1,55 @@
 import 'package:flutter/material.dart';
-//import 'home_page.dart';
-import 'package:bus_project/data/services/get_bus_stops_of_route.dart';
-import 'package:bus_project/data/models/bus_stop.dart';
-import 'package:bus_project/data/services/get_estimated_bus_stop.dart';
-import 'package:bus_project/data/models/estimated_bus_stop.dart';
+import 'package:bus_project/data/services/bus_repository.dart';
+import 'package:bus_project/features/favorites/data/favorites_store.dart';
+import 'package:bus_project/features/route_detail/presentation/route_detail_page.dart';
 
-class MyRoutineStopPage extends StatefulWidget {
-  final String busCode;
-  final String stopDirectionZh;
-  final String stopNameZh;
-  final String estimateTime;
+class MyRoutineStopPage extends StatelessWidget {
+  const MyRoutineStopPage({super.key, required this.repository});
 
-  const MyRoutineStopPage(
-      {super.key,
-      required this.busCode,
-      required this.stopDirectionZh,
-      required this.stopNameZh,
-      required this.estimateTime});
+  final BusRepository repository;
 
   @override
-  State<MyRoutineStopPage> createState() => _MyRoutineStopPageState(
-        busCode: busCode,
-        stopDirectionZh: stopDirectionZh,
-        stopNameZh: stopNameZh,
-        estimateTime: estimateTime,
-      );
-}
-
-class _MyRoutineStopPageState extends State<MyRoutineStopPage> {
-  _MyRoutineStopPageState(
-      {required this.busCode,
-      required this.stopDirectionZh,
-      required this.stopNameZh,
-      required this.estimateTime});
-  final String busCode;
-  final String stopDirectionZh;
-  final String stopNameZh;
-  final String estimateTime;
-  late Future<List<BusStop>> futureBusStops;
-  late Future<List<EstimateBusStop>> futureEstimateBusStops;
-
-  @override
-  void initState() {
-    super.initState();
-    futureBusStops = getBusStopsOfRoute(busCode);
-    futureEstimateBusStops = getEstimateBusStop(busCode);
-  }
-
-  void reloadWindow() {
-    setState(() {
-      futureEstimateBusStops = getEstimateBusStop(busCode);
-    });
-  }
-
-  Future<void> refreshTime() async {
-    // 模擬刷新操作，比如從網絡或其他地方重新加載數據
-    await Future.delayed(const Duration(seconds: 10));
-
-    setState(() {
-      futureEstimateBusStops = getEstimateBusStop(busCode);
-    });
-    print("refresh");
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.blue, Colors.cyanAccent.shade400],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+  Widget build(BuildContext context) => AnimatedBuilder(
+        animation: favoritesStore,
+        builder: (context, _) {
+          final favorites = favoritesStore.items;
+          return Column(children: [
+            const Padding(
+              padding: EdgeInsets.all(16),
+              child: Text('收藏僅保留於本次使用期間；點選站牌可查看該路線到站資訊。'),
             ),
-          ),
-        ),
-        title: const Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                '常用站牌',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold),
-              ),
-            ]),
-      ),
-      backgroundColor: const Color.fromARGB(255, 184, 232, 255),
-      body: RefreshIndicator(
-        onRefresh: refreshTime,
-        child: ListTile(
-          title: //Text("d"),
-              Text(
-                  '$estimateTime - $busCode - 往$stopDirectionZh - $stopNameZh'),
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        fixedColor: const Color.fromARGB(255, 54, 212, 244),
-        unselectedItemColor: Colors.grey.shade500,
-        type: BottomNavigationBarType.fixed,
-        iconSize: 30,
-        showSelectedLabels: true,
-        showUnselectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_location_alt),
-            label: 'Nearby',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.map_outlined),
-            label: 'Map',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-      ),
-    );
-  }
+            Expanded(
+                child: favorites.isEmpty
+                    ? const Center(child: Text('尚無常用站牌，可在路線明細點選星號加入。'))
+                    : ListView.builder(
+                        itemCount: favorites.length,
+                        itemBuilder: (context, index) {
+                          final favorite = favorites[index];
+                          return ListTile(
+                            title: Text(
+                                '${favorite.route.routeName}・${favorite.stop.name}'),
+                            subtitle: Text(
+                                '${favorite.route.city.label}・${favorite.pattern.label}'),
+                            trailing: IconButton(
+                              tooltip: '移除常用站牌',
+                              icon: const Icon(Icons.star),
+                              onPressed: () => favoritesStore.toggle(favorite),
+                            ),
+                            // 收藏清單本身不發出請求，進入路線時沿用共用快取。
+                            onTap: () =>
+                                Navigator.of(context).push(MaterialPageRoute(
+                              builder: (_) => MyRouteDetailPage(
+                                route: favorite.route,
+                                repository: repository,
+                                initialSubRouteUid:
+                                    favorite.pattern.subRouteUid,
+                                initialDirection: favorite.pattern.direction,
+                              ),
+                            )),
+                          );
+                        },
+                      )),
+          ]);
+        },
+      );
 }

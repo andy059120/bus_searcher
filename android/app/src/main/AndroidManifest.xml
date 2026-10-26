@@ -1,4 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 正式版也需要連線至 TDX，不能只依賴 debug manifest。 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="bus_project"
         android:name="${applicationName}"

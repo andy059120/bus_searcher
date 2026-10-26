@@ -6,7 +6,7 @@ TDX 使用 Client Credentials 流程。`client_id` 是識別資訊，`client_sec
 
 取得 secret 的人也可能取得 token，使用這組金鑰允許的服務。即使 app 只讀取資料，授權仍可能遭冒用、消耗用量；這不代表對方因此具有修改 TDX 公車資料的權限。
 
-本專案目前保留純前端。將憑證移出程式碼並排除 Git，可降低原始碼意外洩漏的風險，但 `--dart-define-from-file` 的值仍會進入建置產物。這不是加密或伺服器端秘密儲存；公開散布的 app 若需要保護開發者的共用 secret，應改用受控的後端代理。
+本專案目前保留純前端。將憑證移出程式碼並排除 Git，可降低原始碼意外洩漏的風險，但自動載入的 `config/tdx.local.json` 會作為 Flutter asset 進入建置產物；編譯期參數的值也會進入產物。這不是加密或伺服器端秘密儲存；公開散布的 app 若需要保護開發者的共用 secret，應改用受控的後端代理。
 
 ## 本機設定
 
@@ -36,17 +36,27 @@ git check-ignore config/tdx.local.json
 
 ## 執行與建置
 
+設定檔已列入 Flutter assets。App 啟動時先讀取設定，再建立共用的 API client 與 repository，不需要執行憑證腳本或另外加參數：
+
 ```sh
-fvm flutter run --dart-define-from-file=config/tdx.local.json
-fvm flutter build ios --simulator --debug --dart-define-from-file=config/tdx.local.json
+flutter run
+# 多個裝置時指定模擬器
+flutter run -d B977C1CA-DBFB-4128-BD02-98189B626B78
+# 只確認建置
+flutter build ios --simulator --debug
 ```
 
-VS Code 已有「bus_searcher（本機 TDX 設定）」launch configuration，按 F5 會自動傳入設定檔。修改設定值後需要重新啟動 app；hot reload 不會重新載入編譯期設定。
+VS Code 按 F5 也使用相同流程。`scripts/run_local.sh` 僅保留為選用的專案 SDK 捷徑。
+修改本機 JSON 後應停止 App 並重新執行 `flutter run`，確保新版設定已打包進 asset bundle。
 
-未傳入設定或值為空時，查詢會顯示「尚未設定 TDX API 憑證」，不會送出空白認證請求。測試不需要本機設定，也不會呼叫真正的 TDX：
+既有的 `--dart-define-from-file` 仍可用於覆寫設定；編譯期設定必須同時提供 ID 與 Secret，不會與 JSON 混搭。
+
+缺少設定檔、JSON 格式不正確或欄位未填時，啟動畫面會顯示固定錯誤訊息，不會顯示 JSON、secret 或 token，也不會先向 TDX 送出請求。
+
+新環境若尚未建立本機檔案，請先完成前述「本機設定」。測試以模擬的 asset bundle 與 HTTP 回應執行，不需要真正的金鑰，也不會呼叫 TDX：
 
 ```sh
-fvm flutter test
+flutter test
 ```
 
 ## 認證行為
@@ -58,6 +68,7 @@ fvm flutter test
 - 每次資料查詢重新向 token service 取得當下有效的 token，不再沿用頁面初始化時的 Future。
 - 資料 API 回傳 401 時，作廢對應 token 並重新認證、重試一次；再次 401 不再循環。403、429 等回應不會觸發反覆重新認證。
 - 認證及資料請求分別有 10 秒與 15 秒 timeout；token 不落地保存。
+- 基礎會員模式將認證與資料請求保守計入共用的每 61 秒 5 次限流；429 遵循冷卻時間，不自動重試。快取與手動搜尋策略請參閱 [查詢策略](basic_membership.md)。
 - API client 只允許 TDX 主機的 HTTPS `/api/` 路徑；不自動跟隨重新導向，避免將憑證或授權轉送到其他位置。
 - 認證錯誤不顯示 response body、secret 或 token。不要另外將 request body、Authorization header 或完整建置環境寫入 log。
 
