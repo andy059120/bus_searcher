@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'route_detail_page.dart';
-import '../utils/get_access_token.dart';
-import '../utils/get_bus_route.dart';
-import '../utils/bus_route.dart';
+import 'package:bus_project/features/route_detail/presentation/route_detail_page.dart';
+import 'package:bus_project/data/services/get_bus_route.dart';
+import 'package:bus_project/data/models/bus_route.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -33,15 +32,13 @@ class MySearchPage extends StatefulWidget {
 
 class _MySearchPageState extends State<MySearchPage> {
   final TextEditingController _searchController = TextEditingController();
-  late Future<String> futureAccessToken;
   late Future<List<BusRoute>> futureBusRoutes;
 
   @override
   void initState() {
     super.initState();
     _searchController.addListener(_performSearch);
-    futureAccessToken = getAccessToken();
-    futureBusRoutes = getBusRoute(futureAccessToken, '0000');
+    futureBusRoutes = getBusRoute('0000');
   }
 
   @override
@@ -91,9 +88,9 @@ class _MySearchPageState extends State<MySearchPage> {
           ),
           onChanged: (value) {
             if (value != "") {
-              futureBusRoutes = getBusRoute(futureAccessToken, value);
+              futureBusRoutes = getBusRoute(value);
             } else {
-              futureBusRoutes = getBusRoute(futureAccessToken, "0000");
+              futureBusRoutes = getBusRoute("0000");
             }
           },
         ),

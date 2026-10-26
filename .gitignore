@@ -14,6 +14,12 @@ coverage/
 *.iml
 .DS_Store
 
+# Local TDX credentials (the example file contains no credentials).
+/config/*.local.json
+.env
+.env.*
+!.env.example
+
 # Native build output and machine-specific settings.
 android/.gradle/
 android/.kotlin/

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'search_page.dart';
+import 'package:bus_project/features/search/presentation/search_page.dart';
 //import 'route_detail_page.dart';
 
 class HomePage extends StatelessWidget {

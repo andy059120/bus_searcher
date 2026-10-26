@@ -1,28 +1,18 @@
-import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
-import 'package:http/http.dart' as http;
-import 'estimated_bus_stop.dart';
+import 'package:bus_project/data/services/tdx_api_client.dart';
+import 'package:bus_project/data/models/estimated_bus_stop.dart';
 
-Future<List<EstimateBusStop>> getEstimateBusStop(
-    Future<String> futureAccessToken, String routeName) async {
+Future<List<EstimateBusStop>> getEstimateBusStop(String routeName) async {
   final List<EstimateBusStop> stopsOfTaipei, stopsOfNewTaipei;
-  String accessToken = await futureAccessToken;
 
-  final responseOfTaipei = await http.get(
+  final responseOfTaipei = await tdxApiClient.get(
     Uri.https('tdx.transportdata.tw',
         'api/basic/v2/Bus/EstimatedTimeOfArrival/City/Taipei/$routeName'),
-    headers: {
-      HttpHeaders.authorizationHeader: 'Bearer $accessToken',
-    },
   );
 
-  final responseOfNewTaipei = await http.get(
+  final responseOfNewTaipei = await tdxApiClient.get(
     Uri.https('tdx.transportdata.tw',
         'api/basic/v2/Bus/EstimatedTimeOfArrival/City/NewTaipei/$routeName'),
-    headers: {
-      HttpHeaders.authorizationHeader: 'Bearer $accessToken',
-    },
   );
 
   if (responseOfNewTaipei.statusCode == 200 &&

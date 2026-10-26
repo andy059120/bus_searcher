@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'routine_stop_page.dart';
-import '../utils/get_access_token.dart';
-import '../utils/get_bus_stops_of_route.dart';
-import '../utils/bus_stop.dart';
-import '../utils/get_estimated_bus_stop.dart';
-import '../utils/estimated_bus_stop.dart';
+import 'package:bus_project/features/favorites/presentation/routine_stop_page.dart';
+import 'package:bus_project/data/services/get_bus_stops_of_route.dart';
+import 'package:bus_project/data/models/bus_stop.dart';
+import 'package:bus_project/data/services/get_estimated_bus_stop.dart';
+import 'package:bus_project/data/models/estimated_bus_stop.dart';
 
 class MyRouteDetailPage extends StatefulWidget {
   final String busCode;
@@ -33,21 +32,19 @@ class _MyRouteDetailPageState extends State<MyRouteDetailPage> {
   final String busCode;
   final String stopName0Zh;
   final String stopName1Zh;
-  late Future<String> futureAccessToken;
   late Future<List<BusStop>> futureBusStops;
   late Future<List<EstimateBusStop>> futureEstimateBusStops;
 
   @override
   void initState() {
     super.initState();
-    futureAccessToken = getAccessToken();
-    futureBusStops = getBusStopsOfRoute(futureAccessToken, busCode);
-    futureEstimateBusStops = getEstimateBusStop(futureAccessToken, busCode);
+    futureBusStops = getBusStopsOfRoute(busCode);
+    futureEstimateBusStops = getEstimateBusStop(busCode);
   }
 
   void reloadWindow() {
     setState(() {
-      futureEstimateBusStops = getEstimateBusStop(futureAccessToken, busCode);
+      futureEstimateBusStops = getEstimateBusStop(busCode);
     });
   }
 
@@ -56,7 +53,7 @@ class _MyRouteDetailPageState extends State<MyRouteDetailPage> {
     await Future.delayed(const Duration(seconds: 10));
 
     setState(() {
-      futureEstimateBusStops = getEstimateBusStop(futureAccessToken, busCode);
+      futureEstimateBusStops = getEstimateBusStop(busCode);
     });
     print("refresh");
   }
